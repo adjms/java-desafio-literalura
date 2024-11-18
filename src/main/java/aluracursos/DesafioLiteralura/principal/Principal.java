@@ -1,11 +1,23 @@
 package aluracursos.DesafioLiteralura.principal;
 
+import aluracursos.DesafioLiteralura.model.DatosLibro;
+import aluracursos.DesafioLiteralura.repository.LibroRepository;
+import aluracursos.DesafioLiteralura.service.ConsumoAPI;
+import aluracursos.DesafioLiteralura.service.ConvierteDatos;
+
 import java.util.Scanner;
 
 public class Principal {
     private Scanner teclado = new Scanner(System.in);
-    private final String URL_BASE = "";
+    private ConsumoAPI consumoApi = new ConsumoAPI();
+    private final String URL_BASE = "http://gutendex.com/books/?search=";
     private final String API_KEY = "";
+    private ConvierteDatos conversor = new ConvierteDatos();
+    private LibroRepository repositorio;
+
+    public Principal(LibroRepository repository) {
+        this.repositorio = repository;
+    }
 
     public void menuPrincipal(){
         var opcion = -1;
@@ -46,6 +58,15 @@ public class Principal {
                     System.out.println("Opción inválida");
             }
         }
+    }
+
+    private DatosLibro getDatosLibro(){
+        System.out.println("Escribe el titulo del libro que deseas buscar: ");
+        var nombreLibro = teclado.nextLine();
+        var json = consumoApi.obtenerDatos(URL_BASE + nombreLibro.replace(" ", "%20"));
+        System.out.println(json);
+        DatosLibro datos = conversor.obtenerDatos(json, DatosLibro.class);
+        return datos;
     }
 
     private void buscarLibroPorTitulo() {

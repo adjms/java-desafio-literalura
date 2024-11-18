@@ -16,12 +16,10 @@ public class Autor {
 
     public Autor(){}
 
-    public Autor(Long id, String nombre, int anoNacimiento, int anoFallecimiento, Libro libro) {
-        this.id = id;
+    public Autor(String nombre, int anoNacimiento, int anoFallecimiento) {
         this.nombre = nombre;
         this.anoNacimiento = anoNacimiento;
         this.anoFallecimiento = anoFallecimiento;
-        this.libro = libro;
     }
 
     public Libro getLibro() {

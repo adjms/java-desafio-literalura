@@ -12,6 +12,7 @@ public class Autor {
     private int anoNacimiento;
     private int anoFallecimiento;
     @ManyToOne
+    @JoinColumn(name = "libro_id")
     private Libro libro;
 
     public Autor(){}

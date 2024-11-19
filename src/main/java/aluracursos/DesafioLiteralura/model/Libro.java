@@ -12,9 +12,14 @@ public class Libro {
     private Long id;
     @Column(unique = true)
     private String titulo;
+    @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL)
     private List<Autor> autor;
+    @ElementCollection
+    @CollectionTable(name = "libro_idiomas", joinColumns = @JoinColumn(name = "libro_id"))
     private List<String> idioma;
+    @ElementCollection(targetClass = Categoria.class)
     @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "libro_categorias", joinColumns = @JoinColumn(name = "libro_id"))
     private List<Categoria> categorias;
     private int descargas;
 
